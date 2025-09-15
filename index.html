@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Inggris</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .screen {
+      position: absolute;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 40px;
+    }
+
+    .options {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+    }
+
+    .btn {
+      cursor: pointer;
+      padding: 15px 30px;
+      font-size: 1.8rem;
+      background: #1f1f1f;
+      border-radius: 12px;
+      border: 2px solid #333;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
+
+    .question {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .result {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Layar utama -->
+  <div id="mainScreen" class="screen active">
+    <h1>Quiz Inggris</h1>
+    <div class="options">
+      <div class="btn" id="play">Ayo Main</div>
+      <div class="btn" id="noPlay">Ga Main</div>
+    </div>
+  </div>
+
+  <!-- Pesan motivasi -->
+  <div id="noPlayScreen" class="screen">
+    <div class="result">Jangan Menyerah Ayo Belajar🔥🔥</div>
+    <div class="btn" id="backFromNoPlay">Balik Kembali</div>
+  </div>
+
+  <!-- Soal -->
+  <div id="quizScreen" class="screen">
+    <div class="question">Jika Ada Orang Yang lebih dari dua, disebut?</div>
+    <div class="options">
+      <div class="btn" id="yesS">Pake Akhiran S</div>
+      <div class="btn" id="noS">Ga Pake Akhiran S</div>
+    </div>
+  </div>
+
+  <!-- Hasil Jawaban -->
+  <div id="correctScreen" class="screen">
+    <div class="result">Benar! Selamat Dapet Nilai 100</div>
+    <div class="btn" id="backFromCorrect">Balik Kembali</div>
+  </div>
+
+  <div id="wrongScreen" class="screen">
+    <div class="result">Salah. Coba Lagi Yaa 😁</div>
+  </div>
+
+  <script>
+    const screens = document.querySelectorAll(".screen");
+
+    function showScreen(targetId) {
+      screens.forEach(screen => {
+        if (screen.id === targetId) {
+          screen.classList.add("active");
+        } else {
+          screen.classList.remove("active");
+        }
+      });
+    }
+
+    // Tombol
+    document.getElementById("play").addEventListener("click", () => {
+      showScreen("quizScreen");
+    });
+
+    document.getElementById("noPlay").addEventListener("click", () => {
+      showScreen("noPlayScreen");
+    });
+
+    document.getElementById("backFromNoPlay").addEventListener("click", () => {
+      showScreen("mainScreen");
+    });
+
+    document.getElementById("yesS").addEventListener("click", () => {
+      showScreen("correctScreen");
+    });
+
+    document.getElementById("noS").addEventListener("click", () => {
+      showScreen("wrongScreen");
+      setTimeout(() => {
+        showScreen("quizScreen");
+      }, 1500);
+    });
+
+    document.getElementById("backFromCorrect").addEventListener("click", () => {
+      showScreen("mainScreen");
+    });
+  </script>
+</body>
+</html>
